@@ -1,75 +1,88 @@
----
-layout: default
-title: "Webpack Vanilla JS Template"
-description: "A minimal, zero-config starter for vanilla JavaScript with Webpack, featuring separate development & production builds."
----
+# 🌤️ WeatherWise - Real-Time Weather Dashboard
 
-<!-- PROJECT BADGES -->
-[![npm version](https://badge.fury.io/js/webpack.svg)](https://badge.fury.io/js/webpack)
-[![license: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![build:dev](https://img.shields.io/badge/build-development-green.svg)](#)
-[![build:prod](https://img.shields.io/badge/build-production-blue.svg)](#)
+A responsive web application that provides real-time weather data for any city or country. Features dynamic background changes based on current conditions and a 5-day forecast.
 
-# 📦 Webpack Vanilla JS Template
+![WeatherWise Demo Banner](https://via.placeholder.com/800x400?text=WeatherWise+Demo) <!-- Replace with actual screenshot -->
 
-A minimal, zero-configuration starter template for building **vanilla JavaScript** applications with **Webpack**, offering:
+## 🚀 Features
+- **🌡️ Live Temperature Toggle**  
+  Switch between Celsius/Fahrenheit with one click.
+  
+- **🎨 Context-Aware Backgrounds**  
+  Dynamic UI themes change with weather conditions (sunny, rainy, snowy).
 
-- 🔄 Separate **development** & **production** builds  
-- ⚡️ Hot Module Replacement (HMR)  
-- 📄 HTML template processing  
-- 🎨 CSS bundling & extraction  
-- 🔒 Asset minification & cache-busting  
+- **📊 Comprehensive Weather Data**  
+  - Current temperature
+  - Humidity levels
+  - Wind speed
+  - Weather description
+  - 5-day graphical forecast
 
----
+- **🔍 Intelligent Search**  
+  Autocomplete-powered location search with error handling.
 
-## 📁 Repository Structure
+## 🛠️ Tech Stack
+| Technology | Usage |
+|------------|-------|
+| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | Core page structure |
+| ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Styling & animations |
+| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | Core functionality |
+| ![Webpack](https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black) | Module bundling |
+| ![VisualCrossing](https://img.shields.io/badge/Visual_Crossing-API-important) | Weather data source |
 
-```text
-.
-├── dist/                   # Production build output (auto-generated)
-├── src/                    # Source files
-│   ├── index.js            # Webpack entry point
-│   ├── style.css           # Global styles
-│   └── template.html       # HTML template for HtmlWebpackPlugin
-├── webpack.dev.js          # Development webpack configuration
-├── webpack.prod.js         # Production webpack configuration
-├── package.json            # Project metadata & scripts
-├── .gitignore              # Files & folders to ignore in Git
-└── README.md               # This file
-```
+## ⚙️ Installation Guide
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/yourusername/weatherwise.git
+   cd weatherwise
+   ```
 
-## 🚀 Quick Start
+2. **Install Dependencies**
+    ```bash
+    npm install
+    ```
 
-### 1. Clone the repo  
-```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
-```
+3. **API Setup**
+    - Obtain a free API key from [Visual Crossing Weather API](https://www.visualcrossing.com/weather-api)
+    - Use it in code with proper format to retrieve data
+    ```
+    const apikey = your_actual_key_here
+    ```
 
-### 2. Install dependencies
+4. **Build and Run**
+    ```bash
+    npm run build
+    npm run dev
+   ```
 
-```bash
-npm install
-```
+## 🌐 API Implementation
 
-### 3. Development
-```bash
-npm run start
-```
+### Sample Weather Data Fetch Function
 
-- Launches `webpack-dev-server` at [http://localhost:8080](http://localhost:8080)
-- Enables **Hot Module Replacement (HMR)** and **inline source maps**
-
-### 4. Production Build
-```bash
-npm run build
-```
-
-- Bundles and optimizes assets into `dist/`
-- Minifies JS (Terser) & CSS (`css-minimizer-webpack-plugin`)
-- Uses content-hashed filenames for cache-busting
-
----
+    ```javascript
+    /**
+     * Fetches weather data from Visual Crossing API
+     * @param {string} location - City or country name to search
+     * @returns {Promise<Object>} Weather data in JSON format
+     * @throws {Error} When API request fails
+     */
+    async function fetchWeatherData(location) {
+    try {
+        const response = await fetch(
+        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${apikey}`
+        );
+        
+        if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+        }
+        
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+        throw error;
+    }
+    }
+    ```
 
 ## ⚙️ Configuration Details
 
@@ -114,44 +127,8 @@ npm run build
 - `style-loader`
 - `mini-css-extract-plugin`
 
-### Optimization
-- `terser-webpack-plugin`
-- `css-minimizer-webpack-plugin`
-
 > See `package.json` for exact versions.
 
 ---
 
-## 🤝 Contributing
-
-1. **Fork** this repository
-2. **Create** your feature branch
-   ```bash
-   git checkout -b feature/your-feature
-   ```
-3. **Commit** your changes
-   ```bash
-    git commit -m "feat: add your feature"
-    ```
-4. **Push** to your branch
-    ```bash
-    git push origin feature/your-feature
-    ```
-5. **Open** a **Pull** Request
-
-After pushing your feature branch, open a Pull Request (PR) from your branch into the `main` branch of this repository.
-
-Please make sure to:
-- Write a clear title and description for your PR.
-- Link any related issues if applicable.
-- Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for your commit messages (e.g., `feat: add new feature`, `fix: correct typo in README`).
-
-Once your PR is reviewed and approved, it will be merged into the main project!
-
-## 📝 License
-
-This project is licensed under the **MIT License**.
-
-You are free to use, modify, and distribute this project for personal or commercial purposes under the conditions of the [MIT license](LICENSE).
-
-> See the [LICENSE](LICENSE) file for full license details.
+### Built with ❤️ by Kishlay Singh
